@@ -22,9 +22,33 @@
         <td><%= tweet.user.username %></td>
         <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></td>
         <td><%= tweet.rtcount %> <%= (tweet.rtcount) == 1 ? 'Rt' : 'Rts'%></td>
-        <td><%= link_to 'Retweet', retweet_tweet_path(tweet), method: :post  if  user_signed_in? %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to retweet_tweet_path(tweet), method: :post do%>
+            <i class="fas fa-retweet"></i>
+          <% end %>
+        </td>
+        <td>
+          <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} if  user_signed_in? %>
+          <% if pre_like %>
+            <%= link_to tweet_like_path(tweet.id, pre_like), method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+          <% else %>
+            <%= link_to tweet_likes_path(tweet.id), method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_tweet_path(tweet) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to tweet, method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
