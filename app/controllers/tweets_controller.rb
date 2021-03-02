@@ -63,7 +63,7 @@ class TweetsController < ApplicationController
     if @tweet.save
       redirect_to root_path
     else
-      redirect_to :back, alert: "No se puede retweetear"
+      redirect_to root_path, alert: "No se puede retweetear"
     end
   end
 

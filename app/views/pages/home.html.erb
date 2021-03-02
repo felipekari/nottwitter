@@ -18,7 +18,11 @@
     <% @tweets.each do |tweet| %>
       <tr>
         <td><%= image_tag(tweet.user.profilepic, size: "30") %></td>
-        <td><%= link_to tweet.content, tweet %></td>
+        <% if tweet.rt_tweet_id? %>
+          <td><%= link_to tweet.otweet, tweet %></td>
+        <% else %>
+          <td><%= link_to tweet.content, tweet %></td>
+        <% end %>
         <td><%= tweet.user.username %></td>
         <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></td>
         <td><%= tweet.rtcount %> <%= (tweet.rtcount) == 1 ? 'Rt' : 'Rts'%></td>
