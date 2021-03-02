@@ -1,26 +1,29 @@
-<h1>Home</h1>
+<p id="notice"><%= notice %></p>
+
+<h1>Tweets</h1>
 
 <%= link_to 'New Tweet', new_tweet_path %>
 
 <table>
   <thead>
     <tr>
-      <th colspan="1"></th>
       <th>Content</th>
+      <th>Tweet</th>
       <th>User</th>
-      <th colspan="6"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @tweets.each do |tweet| %>
       <tr>
-        <td><%= image_tag(tweet.user.profilepic, size: "30") %></td>
-        <td><%= link_to tweet.content, tweet %></td>
+        <td><%= tweet.content %></td>
+        <td><%= tweet.rt_tweet_id %></td>
         <td><%= tweet.user.username %></td>
         <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></td>
         <td><%= tweet.rtcount %> <%= (tweet.rtcount) == 1 ? 'Rt' : 'Rts'%></td>
         <td><%= link_to 'Retweet', retweet_tweet_path(tweet), method: :post  if  user_signed_in? %></td>
+        <td><%= link_to 'Show', tweet %></td>
         <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
         <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
