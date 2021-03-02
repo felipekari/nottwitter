@@ -10,7 +10,7 @@
       <th colspan="1"></th>
       <th>Content</th>
       <th>User</th>
-      <th colspan="6"></th>
+      <th colspan="7"></th>
     </tr>
   </thead>
 
@@ -19,18 +19,21 @@
       <tr>
         <td><%= image_tag(tweet.user.profilepic, size: "30") %></td>
         <% if tweet.rt_tweet_id? %>
-          <td><%= link_to tweet.otweet, tweet %></td>
+          <td><%= tweet.otweet.content %></td>
         <% else %>
-          <td><%= link_to tweet.content, tweet %></td>
+          <td><%= tweet.content %></td>
         <% end %>
         <td><%= tweet.user.username %></td>
+        <td><%= link_to time_ago_in_words(tweet.created_at), tweet %></td>
         <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></td>
         <td><%= tweet.rtcount %> <%= (tweet.rtcount) == 1 ? 'Rt' : 'Rts'%></td>
+        <!-- Retweet -->
         <td>
           <%= link_to retweet_tweet_path(tweet), method: :post do%>
             <i class="fas fa-retweet"></i>
           <% end %>
         </td>
+        <!-- Like -->
         <td>
           <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} if  user_signed_in? %>
           <% if pre_like %>
@@ -43,11 +46,13 @@
             <% end %>
           <% end %>
         </td>
+        <!-- Editar -->
         <td>
           <%= link_to edit_tweet_path(tweet) do %>
             <i class="fas fa-edit"></i>
           <% end %>
         </td>
+        <!-- Eliminar -->
         <td>
           <%= link_to tweet, method: :delete, data: { confirm: 'Are you sure?' } do %>
             <i class="fas fa-trash-alt"></i>

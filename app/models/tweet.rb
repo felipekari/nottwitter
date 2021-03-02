@@ -12,6 +12,6 @@ class Tweet < ApplicationRecord
   end
 
   def otweet
-    Tweet.find_by(id: self.rt_tweet_id).content
+    Tweet.find_by(id: self.rt_tweet_id)
   end
 end
