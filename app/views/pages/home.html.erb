@@ -1,6 +1,8 @@
 <h1>Home</h1>
 
-<%= link_to 'New Tweet', new_tweet_path %>
+<% if user_signed_in? %>
+  <%= render 'form', tweet: @tweet %>
+<% end %>
 
 <table>
   <thead>
