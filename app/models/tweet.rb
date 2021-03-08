@@ -14,4 +14,7 @@ class Tweet < ApplicationRecord
   def otweet
     Tweet.find_by(id: self.rt_tweet_id)
   end
+
+  # scope :tweets_for_me, -> { joins(:user, user: [:followers]).where(followers: { follower_id: current_user.id}) }
+
 end

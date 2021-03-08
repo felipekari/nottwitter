@@ -1,12 +1,17 @@
-<div class="border px-3">
-  <h1>Home</h1>
-</div>
+<div class="border p-5">
+  <%= image_tag(@user.profilepic, size: "100", class: "rounded-circle") %>
+  <h1><%= @user.username %></h1>
 
-<% if user_signed_in? %>
-  <div class="border p-3">
-    <%= render 'form', tweet: @tweet %>
-  </div>
-<% end %>
+  <% if user_signed_in? %>
+    <% pre_follow = @user.followers.find { |follow| follow.follower_id == current_user.id} %>
+    <% if pre_follow %>
+      <%= button_to 'Dejar de seguir', user_follower_path(@user, pre_follow), method: :delete, class: "btn btn-dark" %>
+    <% else %>
+      <%= button_to 'Seguir', user_followers_path(@user), method: :post, class: "btn btn-dark" %>
+    <% end %>
+  <% end %>
+</div>
+  
 <% @tweets.each do |tweet| %>
 
   <div class="card">

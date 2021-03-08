@@ -1,10 +1,9 @@
 <%= form_with model: Tweet.new do |form| %>
-    <div class="field">
-        <%= form.label :content %>
-        <%= form.text_field :content %>
+    <div class="field form-group">
+        <%= form.text_field :content, class: "form-control form-control-lg", placeholder: "¿Que estas pensando?" %>
     </div>
 
     <div class="actions">
-        <%= form.submit(class: "btn btn-primary") %>
+        <%= form.submit(class: "btn btn-dark", value: 'Twittear') %>
     </div>
 <% end %>
