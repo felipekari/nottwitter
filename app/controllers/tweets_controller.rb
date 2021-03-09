@@ -1,6 +1,5 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy retweet ]
-  has_scope :tweets_for_me
 
   # GET /tweets or /tweets.json
   def index
