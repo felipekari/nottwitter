@@ -10,9 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @user.followers.create(follower_id: @user.id)
+  end
 
   # GET /resource/edit
   # def edit

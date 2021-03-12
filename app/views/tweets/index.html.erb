@@ -13,7 +13,11 @@
 
           <p>
             <% if tweet.rt_tweet_id? %>
-              <%= raw tweet.otweet.content %>
+              <% if tweet.otweet == nil %>
+                <p>Tweet no encontrado</p>
+              <% else %>
+                <%= raw tweet.otweet.content %>
+              <% end %>
             <% else %>
               <%= raw tweet.content %>
             <% end %>
