@@ -1,0 +1,70 @@
+<div class="border px-3">
+    <h1>Descubrir</h1>
+  </div>
+  
+  <% @tweets.each do |tweet| %>
+  
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-auto">
+            <%= image_tag(tweet.user.profilepic, size: "30", class: "rounded-circle") %>
+          </div>
+          <div class="col">
+            <%= link_to tweet.user.username, user_path(tweet.user.id) %>
+  
+            <p>
+              <% if tweet.rt_tweet_id? %>
+                <% if tweet.otweet == nil %>
+                  <p>Tweet no encontrado</p>
+                <% else %>
+                  <%= raw tweet.otweet.content %>
+                <% end %>
+              <% else %>
+                <%= raw tweet.content %>
+              <% end %>
+            </p>
+      
+            <%= link_to time_ago_in_words(tweet.created_at), tweet %>
+          
+            <!-- Retweet -->
+            
+            <%= link_to retweet_tweet_path(tweet), method: :post do%>
+              <i class="fas fa-retweet"></i>
+            <% end %>
+            <%= tweet.rtcount %> <%= (tweet.rtcount) == 1 ? 'Rt' : 'Rts'%>
+            
+            <!-- Like -->
+            
+            <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} if  user_signed_in? %>
+            <% if pre_like %>
+              <%= link_to tweet_like_path(tweet.id, pre_like), method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+            <% else %>
+              <%= link_to tweet_likes_path(tweet.id), method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+            <% end %>
+            <%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%>
+      
+            
+            <!-- Editar -->
+            
+            <%= link_to edit_tweet_path(tweet) do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+            
+            <!-- Eliminar -->
+            
+            <%= link_to tweet, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+  <% end %>
+  
+  <%= paginate @tweets %>

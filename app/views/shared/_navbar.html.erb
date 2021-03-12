@@ -9,6 +9,9 @@
         <li class="nav-item active">
           <%= link_to "Inicio", root_path, class: "nav-link" %>
         </li>
+        <li class="nav-item active">
+          <%= link_to "Descubrir", discover_path, class: "nav-link" %>
+        </li>
         <% if user_signed_in? %>
           <div class="d-flex border-right border-left mx-4 py-0">
             <li class="nav-item active">

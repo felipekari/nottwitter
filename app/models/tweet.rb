@@ -16,9 +16,7 @@ class Tweet < ApplicationRecord
   end
 
   scope :tweets_for_me, lambda { |user| joins(:user, user: [:followers]).where("followers.follower_id = ?", user.id) }
-
-
-  # scope :tweets_for_me, lambda { where(:attibute => value)}
+  scope :tweets_discover, lambda { |user| joins(:user, user: [:followers]).where.not("followers.follower_id = ?", user.id) }
 
   def hcontent
     tcont = self.content.split

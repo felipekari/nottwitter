@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :followers, only: [:create, :destroy]
   end
   get 'home', to: 'pages#home'
+  get 'discover', to: 'pages#discover'
   root "pages#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
