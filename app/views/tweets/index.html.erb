@@ -13,9 +13,9 @@
 
           <p>
             <% if tweet.rt_tweet_id? %>
-              <%= tweet.otweet.content %>
+              <%= raw tweet.otweet.content %>
             <% else %>
-              <%= tweet.content %>
+              <%= raw tweet.content %>
             <% end %>
           </p>
     

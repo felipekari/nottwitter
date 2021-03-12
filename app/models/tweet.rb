@@ -15,6 +15,22 @@ class Tweet < ApplicationRecord
     Tweet.find_by(id: self.rt_tweet_id)
   end
 
-  # scope :tweets_for_me, -> { joins(:user, user: [:followers]).where(followers: { follower_id: current_user.id}) }
+  scope :tweets_for_me, lambda { |user| joins(:user, user: [:followers]).where("followers.follower_id = ?", user.id) }
 
+
+  # scope :tweets_for_me, lambda { where(:attibute => value)}
+
+  def hcontent
+    tcont = self.content.split
+    tcont.map! do |tc|
+      if tc.include? "#"
+        tc[0] = ''
+        # tc = "<%= link_to '#{tc}'', tweets_path( q: {content_cont: '#{tc}'}) %>"
+        tc = "<a href='/tweets?q%5Bcontent_cont%5D=#{tc}'>##{tc}</a>"
+      else
+        tc
+      end
+    end
+    tcont = tcont.join(' ')
+  end
 end
