@@ -23,10 +23,10 @@
               <% if tweet.otweet == nil %>
                 <p>Tweet no encontrado</p>
               <% else %>
-                <%= raw tweet.otweet.content %>
+                <%= raw tweet.otweet.hcontent %>
               <% end %>
             <% else %>
-              <%= raw tweet.content %>
+              <%= raw tweet.hcontent %>
             <% end %>
           </p>
     
