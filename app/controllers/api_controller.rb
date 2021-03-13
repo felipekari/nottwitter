@@ -15,4 +15,11 @@ class ApiController < ActionController::API
     end
     render json: tarray
   end
+
+  def search
+    fecha1 = params[:fecha1].to_date
+    fecha2 = params[:fecha2].to_date + 1.day
+    @tweets = Tweet.all.where(created_at: fecha1..fecha2)
+    render json: @tweets
+  end
 end

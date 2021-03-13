@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   get 'api/news', to: 'api#news'
+  get 'api/:fecha1/:fecha2', to: 'api#search'
 
   get 'home', to: 'pages#home'
   get 'discover', to: 'pages#discover'
