@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'api/news'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'users/registrations' }
@@ -13,6 +14,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     resources :followers, only: [:create, :destroy]
   end
+
+  get 'api/news', to: 'api#news'
+
   get 'home', to: 'pages#home'
   get 'discover', to: 'pages#discover'
   root "pages#home"
