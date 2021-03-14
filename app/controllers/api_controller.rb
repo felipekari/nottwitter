@@ -22,4 +22,18 @@ class ApiController < ActionController::API
     @tweets = Tweet.all.where(created_at: fecha1..fecha2)
     render json: @tweets
   end
+
+  def create
+    @user = User.find_by(email: request.headers["X-EMAIL"])
+    if @user.present?
+      @tweet = Tweet.new(content: request.headers["X-CONTENT"], user: @user)
+      if @tweet.save
+        render json: @tweet
+      else
+        render json: 'No se pudo guardar'
+      end
+    else
+      render json: 'Usuario no encontrado'
+    end
+  end
 end
